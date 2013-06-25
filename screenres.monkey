@@ -1,5 +1,7 @@
 Strict
 
+'version 5
+' - updated unsupported stub
 'version 4
 ' - updated example
 ' - changed function name to ChangeScreenMode()
@@ -15,15 +17,31 @@ Strict
 Import mojo
 
 #if TARGET <> "glfw"
-	Function ChangeScreenResolution:Void(width:Int, height:Int, depth:Int, fullscreen:Bool)
+	Function ChangeScreenMode:Void(width:Int, height:Int, depth:Int, fullscreen:Bool)
 		' --- do nothing ---
 		#IF CONFIG = "debug"
-			Print "cant change screen resolution on this target"
+			Print "cant change screen mode on this target"
 		#End
 	End
 	
+	Function GetAvailableScreenModes:Int[][] ()
+		' --- do nothing ---
+		#IF CONFIG = "debug"
+			Print "cant find available screen modes on this target"
+		#End
+		Return New Int[0][]
+	End
+	
+	Function ScreenModeExists:Bool(width:Int, height:Int, depth:Int)
+		' --- do nothing ---
+		#IF CONFIG = "debug"
+			Print "cant find available screen modes on this target"
+		#End
+		Return False
+	End
+	
 	Function AddAutoLoadImage:Void(image:Image)
-		' --- do nothing ---		
+		' --- do nothing ---
 	End
 	
 	Function RemoveAutoLoadImage:Void(image:Image)
