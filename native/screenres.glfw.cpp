@@ -1,7 +1,65 @@
 //forward declaration
 extern gxtkGraphics *bb_graphics_device;
 
-static void ChangeScreenResolutionNative(int width, int height, int depth, bool fullscreen,Array<gxtkSurface* > surfaces,int surfacesTotal) {
+//constants
+#define MAX_NUM_MODES 400
+
+//api
+static Array<Array<int > > GetAvailableScreenModesNative() {
+	// --- get available screen resolutions ---
+	int modeCount,index,depth;
+	
+	//create array for modes
+	GLFWvidmode glfwModes[MAX_NUM_MODES];
+	
+	//get the video modes from glfw
+	modeCount = glfwGetVideoModes(glfwModes,MAX_NUM_MODES);
+
+	//create monkey return array please :D
+	Array<Array<int > > modes=Array<Array<int > >(modeCount);
+
+	//iterate over all glfw modes
+	for(index=0;index<modeCount;index++) {
+		//create new array in array for this mode
+		gc_assign(modes.At(index),Array<int >(3));
+		
+		//get depth
+		//fix 24bits for potential later cross compatability (faking alpha bits)
+		depth = glfwModes[index].RedBits + glfwModes[index].GreenBits + glfwModes[index].BlueBits;
+		if (depth == 24) { depth = 32; }
+		
+		//save values
+		modes.At(index).At(0) = glfwModes[index].Width;
+		modes.At(index).At(1) = glfwModes[index].Height;
+		modes.At(index).At(2) = depth;
+	}
+
+	//return result please :D
+	return modes;
+}
+
+static bool ScreenModeExistsNative(int width,int height, int depth) {
+	// --- return true if particular screen mode exists ---
+	GLFWvidmode glfwModes[MAX_NUM_MODES];
+	int modeCount,index;
+
+	//fix 32 graphics mode so it matches glfw color bits
+	if (depth == 32) { depth = 24; }
+
+	//look for matching graphics mode
+	modeCount = glfwGetVideoModes(glfwModes,MAX_NUM_MODES);
+	for(index=0;index<modeCount;index++) {
+		if (glfwModes[index].Width == width && glfwModes[index].Height == height && glfwModes[index].RedBits + glfwModes[index].GreenBits + glfwModes[index].BlueBits == depth) {
+			return true;
+		}
+	}
+
+	//nope!
+	return false;
+}
+
+
+static void ChangeScreenModeNative(int width, int height, int depth, bool fullscreen,Array<gxtkSurface* > surfaces,int surfacesTotal) {
 	// --- change the screen resolution ---
 	//this function will also handle transfering surfaces to the nw context.
 	int index;

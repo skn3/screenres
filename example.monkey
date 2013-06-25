@@ -1,7 +1,7 @@
 Strict
 
 Import mojo
-Import screenres
+Import skn3.screenres
 
 Function Main:Int()
 	New MyApp
@@ -19,6 +19,18 @@ Class MyApp Extends App
 		' --- setup the game ---
 		SetUpdateRate(60)
 		
+		'get all availabel screen modes
+		Local modes:= GetAvailableScreenModes()
+		For Local index:= 0 Until modes.Length
+			Print "Graphics Mode: " + modes[index][0] + " x " + modes[index][1] + " " + modes[index][2] + "bit"
+		Next
+		
+		'test a particular screen mode
+		Local width:= 640
+		Local height:= 480
+		Local depth:= 32
+		Print "SreenModeExists(" + width + "," + height + "," + depth + ") = " + Int(ScreenModeExists(width, height, depth))
+		
 		'make sure we add the monkey default font to auto load
 		'try commenting this line out and see what happens
 		AddAutoLoadImage(GetFont())
@@ -33,10 +45,16 @@ Class MyApp Extends App
 		AddAutoLoadImage(image2)'this wont do anything as it is a duplicate surface Grabbed from image1
 		AddAutoLoadImage(image3)
 		
-		Local blah:Surface[10]
-		blah[0] = Null
+		Local blah:= Test()
 		
 		Return 0
+	End
+	
+	Method Test:Int[][] ()
+		Local wee:= New Int[5][]
+		wee[0] = New Int[3]
+		wee[0][0] = 1234
+		Return wee
 	End
 	
 	Method OnUpdate:Int()
@@ -46,10 +64,10 @@ Class MyApp Extends App
 		If KeyHit(KEY_SPACE)
 			If large
 				large = False
-				ChangeScreenResolution(300, 300, 32, False)
+				ChangeScreenMode(300, 300, 32, False)
 			Else
 				large = True
-				ChangeScreenResolution(640, 480, 32, False)
+				ChangeScreenMode(640, 480, 32, False)
 			EndIf
 		EndIf
 		

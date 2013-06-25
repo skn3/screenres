@@ -1,5 +1,10 @@
 Strict
 
+'version 4
+' - updated example
+' - changed function name to ChangeScreenMode()
+' - added GetAvailableScreenModes()
+' - added SreenModeExists()
 'version 3
 ' - made so example adds the monkey font
 'version 2
@@ -33,14 +38,19 @@ Import mojo
 	
 	Import "native/screenres.${TARGET}.${LANG}"
 	
-	Extern
-		Function ChangeScreenResolutionNative:Void(width:Int, height:Int,depth:Int, fullscreen:Bool, surfaces:Surface[], surfacesTotal:Int)
-	Public
+	Extern Private
+		Function ChangeScreenModeNative:Void(width:Int, height:Int, depth:Int, fullscreen:Bool, surfaces:Surface[], surfacesTotal:Int)
+	Private
 	
+	Extern
+		Function GetAvailableScreenModes:Int[][] () = "GetAvailableScreenModesNative"
+		Function ScreenModeExists:Bool(width:Int, height:Int, depth:Int) = "ScreenModeExistsNative"
+	Public
+		
+	'private runtime stuff
 	Private
 	Global reloadImages:Image[]
 	Global reloadImagesTotal:Int
-	Public
 	
 	Class SurfaceMap<V> Extends Map<Surface, V>
 		Method Compare:Int(a:Surface, b:Surface)
@@ -48,8 +58,10 @@ Import mojo
 			Return -1
 		End
 	End
+	Public
 	
-	Function ChangeScreenResolution:Void(width:Int, height:Int, depth:Int, fullscreen:Bool)
+	'api
+	Function ChangeScreenMode:Void(width:Int, height:Int, depth:Int, fullscreen:Bool)
 		' --- changes the screen resolution ---
 		'build a list of unique surfaces
 		Local surfaceLookup:= New SurfaceMap<Surface>
@@ -80,7 +92,7 @@ Import mojo
 		Next
 		
 		'call change screen resolution
-		ChangeScreenResolutionNative(width, height, depth, fullscreen, surfaces, surfaceTotal)
+		ChangeScreenModeNative(width, height, depth, fullscreen, surfaces, surfaceTotal)
 	End
 	
 	Function AddAutoLoadImage:Void(image:Image)
