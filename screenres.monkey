@@ -5,6 +5,8 @@ Strict
 'version 1
 ' - old version for monkey v67
 
+Import mojo
+
 #if TARGET <> "glfw"
 	Function ChangeScreenResolution:Void(width:Int, height:Int, depth:Int, fullscreen:Bool)
 		' --- do nothing ---
@@ -12,8 +14,19 @@ Strict
 			Print "cant change screen resolution on this target"
 		#End
 	End
+	
+	Function AddAutoLoadImage:Void(image:Image)
+		' --- do nothing ---		
+	End
+	
+	Function RemoveAutoLoadImage:Void(image:Image)
+		' --- do nothing ---
+	End
+	
+	Function ClearAutoLoadImages:Void()
+		' --- do nothing ---		
+	End
 #Else
-	Import mojo
 	Import mojo.graphicsdevice
 	
 	Import "native/screenres.${TARGET}.${LANG}"
