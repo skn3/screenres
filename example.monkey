@@ -19,6 +19,10 @@ Class MyApp Extends App
 		' --- setup the game ---
 		SetUpdateRate(60)
 		
+		'make sure we add the monkey default font to auto load
+		'try commenting this line out and see what happens
+		AddAutoLoadImage(GetFont())
+		
 		'load an image
 		image1 = LoadImage("test.png")
 		image2 = image1.GrabImage(2, 2, 12, 12)
@@ -45,7 +49,7 @@ Class MyApp Extends App
 				ChangeScreenResolution(300, 300, 32, False)
 			Else
 				large = True
-				ChangeScreenResolution(640, 480, 32, True)
+				ChangeScreenResolution(640, 480, 32, False)
 			EndIf
 		EndIf
 		
@@ -65,6 +69,11 @@ Class MyApp Extends App
 		If image1 DrawImage(image1, 50, 50, 0.0, 3.0, 3.0, 0)
 		If image2 DrawImage(image2, 100, 100, 0.0, 3.0, 3.0, 0)
 		If image3 DrawImage(image3, 150, 150, 0.0, 3.0, 3.0, 0)
+		
+		'draw text
+		SetColor(255, 255, 255)
+		DrawText("Press space to change resolution", 5, 5)
+		
 		Return 0
 	End
 End

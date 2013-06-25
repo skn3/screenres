@@ -1,5 +1,7 @@
 Strict
 
+'version 3
+' - made so example adds the monkey font
 'version 2
 ' - first commit as proper module
 'version 1
