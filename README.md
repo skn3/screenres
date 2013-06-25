@@ -1,4 +1,4 @@
 screenres
 =========
 
-Monkey Screen REsolution Module
+Monkey Screen Resolution Module
