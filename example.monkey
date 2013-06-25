@@ -45,16 +45,7 @@ Class MyApp Extends App
 		AddAutoLoadImage(image2)'this wont do anything as it is a duplicate surface Grabbed from image1
 		AddAutoLoadImage(image3)
 		
-		Local blah:= Test()
-		
 		Return 0
-	End
-	
-	Method Test:Int[][] ()
-		Local wee:= New Int[5][]
-		wee[0] = New Int[3]
-		wee[0][0] = 1234
-		Return wee
 	End
 	
 	Method OnUpdate:Int()
