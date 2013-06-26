@@ -1,5 +1,7 @@
 Strict
 
+'version 6
+' - working on osx
 'version 5
 ' - updated unsupported stub
 'version 4

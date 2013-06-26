@@ -67,7 +67,7 @@ static void ChangeScreenModeNative(int width, int height, int depth, bool fullsc
 
 	//get details about the change
 	//work out the bits
-	int redBits,greenBits,blueBits,alphaBits,stencilBits;
+	int redBits,greenBits,blueBits,alphaBits;
 	switch(depth) {
 		case 0:
 			//use desktop settings
@@ -90,10 +90,10 @@ static void ChangeScreenModeNative(int width, int height, int depth, bool fullsc
 			redBits = 8;
 			greenBits = 8;
 			blueBits = 8;
-			alphaBits = 0;
+			alphaBits = 8;
 			break;
 	}
-
+	
 	//get desktop mode
 	GLFWvidmode desktopMode;
 	glfwGetDesktopMode( &desktopMode );
@@ -124,7 +124,7 @@ static void ChangeScreenModeNative(int width, int height, int depth, bool fullsc
 		glfwCloseWindow();
 		
 		//create new window
-		if(!glfwOpenWindow(width,height,redBits,greenBits,blueBits,alphaBits,CFG_OPENGL_DEPTH_BUFFER_ENABLED ? 32 : 0,stencilBits,fullscreen ? GLFW_FULLSCREEN : GLFW_WINDOW)) {
+		if(!glfwOpenWindow(width,height,redBits,greenBits,blueBits,alphaBits,CFG_OPENGL_DEPTH_BUFFER_ENABLED ? 32 : 0,0,fullscreen ? GLFW_FULLSCREEN : GLFW_WINDOW)) {
 			puts( "glfwOpenWindow failed" );
 			exit(-1);
 		}
@@ -175,7 +175,7 @@ static void ChangeScreenModeNative(int width, int height, int depth, bool fullsc
 		glfwCloseWindow();
 		
 		//create new window
-		if(!glfwOpenWindow(width,height,redBits,greenBits,blueBits,alphaBits,CFG_OPENGL_DEPTH_BUFFER_ENABLED ? 32 : 0,stencilBits,fullscreen ? GLFW_FULLSCREEN : GLFW_WINDOW)) {
+		if(!glfwOpenWindow(width,height,redBits,greenBits,blueBits,alphaBits,CFG_OPENGL_DEPTH_BUFFER_ENABLED ? 32 : 0,0,fullscreen ? GLFW_FULLSCREEN : GLFW_WINDOW)) {
 			puts( "glfwOpenWindow failed" );
 			exit(-1);
 		}

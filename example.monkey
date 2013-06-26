@@ -1,7 +1,7 @@
 Strict
 
 Import mojo
-Import skn3.screenres
+Import screenres
 
 Function Main:Int()
 	New MyApp
