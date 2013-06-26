@@ -113,6 +113,9 @@ Import mojo
 		
 		'call change screen resolution
 		ChangeScreenModeNative(width, height, depth, fullscreen, surfaces, surfaceTotal)
+		
+		'need to reset input device here as not possible without hacking in native
+		
 	End
 	
 	Function AddAutoLoadImage:Void(image:Image)

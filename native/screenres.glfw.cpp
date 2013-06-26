@@ -248,4 +248,11 @@ static void ChangeScreenModeNative(int width, int height, int depth, bool fullsc
 	//update monkey game stuff
 	bb_graphics_device->width = width;
 	bb_graphics_device->height = height;
+	
+#if __APPLE__
+	//reset keyboard states
+	for (int index = 0; index < 512;++index) {
+		BBGame::Game()->Delegate()->KeyEvent(BBGameEvent::KeyUp,index);
+	}
+#endif
 }

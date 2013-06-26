@@ -52,12 +52,16 @@ Class MyApp Extends App
 		' --- update the game ---
 		If KeyHit(KEY_ESCAPE) Error("")
 		
+		If KeyHit(KEY_LEFT) Print "left pressed"
+		
 		If KeyHit(KEY_SPACE)
 			If large
 				large = False
+				Print "change to small"
 				ChangeScreenMode(300, 300, 32, False)
 			Else
 				large = True
+				Print "change to large"
 				ChangeScreenMode(640, 480, 32, False)
 			EndIf
 		EndIf
